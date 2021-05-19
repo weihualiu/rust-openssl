@@ -10,6 +10,7 @@ pub const EVP_PKEY_RSA: c_int = NID_rsaEncryption;
 pub const EVP_PKEY_DSA: c_int = NID_dsa;
 pub const EVP_PKEY_DH: c_int = NID_dhKeyAgreement;
 pub const EVP_PKEY_EC: c_int = NID_X9_62_id_ecPublicKey;
+pub const EVP_PKEY_SM2: c_int = NID_sm2;
 #[cfg(ossl111)]
 pub const EVP_PKEY_X25519: c_int = NID_X25519;
 #[cfg(ossl111)]
@@ -295,6 +296,11 @@ extern "C" {
     pub fn EVP_chacha20() -> *const ::EVP_CIPHER;
     #[cfg(ossl110)]
     pub fn EVP_chacha20_poly1305() -> *const ::EVP_CIPHER;
+    #[cfg(all(ossl111, not(osslconf = "OPENSSL_NO_SM4")))]
+    pub fn EVP_sm4_ecb() -> *const EVP_CIPHER;
+    pub fn EVP_sm4_cbc() -> *const EVP_CIPHER;
+    pub fn EVP_sm4_ofb() -> *const EVP_CIPHER;
+    pub fn EVP_sm4_ctr() -> *const EVP_CIPHER;
 
     #[cfg(not(ossl110))]
     pub fn OPENSSL_add_all_algorithms_noconf();
